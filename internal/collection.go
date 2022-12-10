@@ -1,8 +1,7 @@
-package collection
+package internal
 
 import (
 	"encoding/json"
-	. "github.com/fraynjo/fnboot/internal"
 )
 
 func ForeachArray[T FnInterface](arr []T, f func(i int, v T) T) []T {

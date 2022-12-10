@@ -1,4 +1,4 @@
-package number
+package internal
 
 import "testing"
 

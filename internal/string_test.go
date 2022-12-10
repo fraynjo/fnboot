@@ -1,4 +1,4 @@
-package string
+package internal
 
 import (
 	"testing"
