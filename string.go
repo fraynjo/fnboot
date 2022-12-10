@@ -7,10 +7,7 @@ import (
 	"strings"
 )
 
-type FString struct {
-}
-
-func (fs FString) CamelCase(value, sep string) string {
+func CamelCase(value, sep string) string {
 	arr := strings.Split(value, sep)
 	s := ""
 	for i, v := range arr {
@@ -23,11 +20,11 @@ func (fs FString) CamelCase(value, sep string) string {
 	return s
 }
 
-func (fs FString) Capitalize(value string) string {
+func Capitalize(value string) string {
 	return strings.ToUpper(value[:1]) + strings.ToLower(value[1:])
 }
 
-func (fs FString) EndsWith(value, target string) bool {
+func EndsWith(value, target string) bool {
 	if len(target) > len(value) {
 		return false
 	}
@@ -35,7 +32,7 @@ func (fs FString) EndsWith(value, target string) bool {
 	return value[(len(value)-targetLen):] == target
 }
 
-func (fs FString) StartWith(value, target string) bool {
+func StartWith(value, target string) bool {
 	if len(target) > len(value) {
 		return false
 	}
@@ -43,33 +40,33 @@ func (fs FString) StartWith(value, target string) bool {
 	return value[:targetLen] == target
 }
 
-func (fs FString) LowerFirst(value string) string {
+func LowerFirst(value string) string {
 	if value == "" {
 		return value
 	}
-	return fs.ToLower(value[:1]) + value[1:]
+	return ToLower(value[:1]) + value[1:]
 }
 
-func (fs FString) UpperFirst(value string) string {
+func UpperFirst(value string) string {
 	if value == "" {
 		return value
 	}
-	return fs.ToUpper(value[:1]) + value[1:]
+	return ToUpper(value[:1]) + value[1:]
 }
 
-func (fs FString) PadEnd(value string, length int) string {
+func PadEnd(value string, length int) string {
 	padStr := ""
 	for i := 0; i < length; i++ {
 		padStr += " "
 	}
-	return value + fs.Repeat(" ", length)
+	return value + Repeat(" ", length)
 }
 
-func (fs FString) PadStart(value string, length int) string {
-	return fs.Repeat(" ", length) + value
+func PadStart(value string, length int) string {
+	return Repeat(" ", length) + value
 }
 
-func (fs FString) ParseInt(value string) int64 {
+func ParseInt(value string) int64 {
 	if i, err := strconv.Atoi(value); err != nil {
 		return 0
 	} else {
@@ -77,7 +74,7 @@ func (fs FString) ParseInt(value string) int64 {
 	}
 }
 
-func (fs FString) Repeat(value string, length int) string {
+func Repeat(value string, length int) string {
 	str := ""
 	for i := 0; i < length; i++ {
 		str += value
@@ -85,15 +82,15 @@ func (fs FString) Repeat(value string, length int) string {
 	return str
 }
 
-func (fs FString) Replace(value, find, replacement string) string {
+func Replace(value, find, replacement string) string {
 	return strings.Replace(value, find, replacement, 1)
 }
 
-func (fs FString) ReplaceAll(value, find, replacement string) string {
+func ReplaceAll(value, find, replacement string) string {
 	return strings.ReplaceAll(value, find, replacement)
 }
 
-func (fs FString) SnakeCase(value string) string {
+func SnakeCase(value string) string {
 	s := ""
 	sep := "_"
 	temp := ""
@@ -108,31 +105,31 @@ func (fs FString) SnakeCase(value string) string {
 	return s
 }
 
-func (fs FString) Split(value, sep string) []string {
+func Split(value, sep string) []string {
 	return strings.Split(value, sep)
 }
 
-func (fs FString) ToLower(value string) string {
+func ToLower(value string) string {
 	return strings.ToLower(value)
 }
 
-func (fs FString) ToUpper(value string) string {
+func ToUpper(value string) string {
 	return strings.ToUpper(value)
 }
 
-func (fs FString) Trim(value, cutset string) string {
+func Trim(value, cutset string) string {
 	return strings.Trim(value, cutset)
 }
 
-func (fs FString) TrimEnd(value, cutset string) string {
+func TrimEnd(value, cutset string) string {
 	return strings.TrimRight(value, cutset)
 }
 
-func (fs FString) TrimStart(value, cutset string) string {
+func TrimStart(value, cutset string) string {
 	return strings.TrimLeft(value, cutset)
 }
 
-func (fs FString) Truncate(value string, length int, omission string) string {
+func Truncate(value string, length int, omission string) string {
 	defaultLen := 30
 	defaultOmission := "..."
 	if length == 0 {
@@ -144,7 +141,7 @@ func (fs FString) Truncate(value string, length int, omission string) string {
 	return value[:length] + omission
 }
 
-func (fs FString) RandomNumber(length int) string {
+func RandomNumber(length int) string {
 	var str string
 	b2 := new(big.Int).SetInt64(int64(10))
 	for i := 0; i < length; i++ {
@@ -155,7 +152,7 @@ func (fs FString) RandomNumber(length int) string {
 	return str
 }
 
-func (fs FString) RandString(len int) string {
+func RandString(len int) string {
 	bytes := make([]byte, len)
 
 	b2 := new(big.Int).SetInt64(int64(26))
