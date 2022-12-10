@@ -2,7 +2,7 @@ package math
 
 import (
 	"fmt"
-	. "fn/internal"
+	. "github.com/fraynjo/fnboot/internal"
 	"math"
 	"strconv"
 )

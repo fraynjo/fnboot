@@ -1,12 +1,12 @@
 package number
 
 import (
-	"fn/internal"
+	. "github.com/fraynjo/fnboot/internal"
 	"math/rand"
 	"time"
 )
 
-func InRange[T internal.FnNumber, T1 internal.FnNumber, T2 internal.FnNumber](value T, start T1, end T2) bool {
+func InRange[T FnNumber, T1 FnNumber, T2 FnNumber](value T, start T1, end T2) bool {
 	return float64(value) >= float64(start) && float64(value) <= float64(end)
 }
 
