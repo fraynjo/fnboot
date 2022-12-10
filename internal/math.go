@@ -1,8 +1,7 @@
-package math
+package internal
 
 import (
 	"fmt"
-	. "github.com/fraynjo/fnboot/internal"
 	"math"
 	"strconv"
 )

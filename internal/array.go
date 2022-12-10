@@ -1,8 +1,4 @@
-package array
-
-import (
-	. "github.com/fraynjo/fnboot/internal"
-)
+package internal
 
 func Chunk[T FnAny](array []T, size int) [][]T {
 	newArr := make([][]T, 0)

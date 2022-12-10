@@ -1,11 +1,10 @@
-package lang
+package internal
 
 import (
 	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
-	. "github.com/fraynjo/fnboot/internal"
 	"reflect"
 	"strconv"
 	"time"

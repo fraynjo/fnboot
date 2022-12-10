@@ -1,7 +1,6 @@
-package number
+package internal
 
 import (
-	. "github.com/fraynjo/fnboot/internal"
 	"math/rand"
 	"time"
 )

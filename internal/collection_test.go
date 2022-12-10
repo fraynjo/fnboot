@@ -1,4 +1,4 @@
-package collection
+package internal
 
 import "testing"
 
