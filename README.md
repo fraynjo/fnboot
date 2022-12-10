@@ -1,3 +1,7 @@
 # fnboot
 
-`version: v0.4.0`
+## Installation
+
+```
+go get -u github.com/fraynjo/fnboot
+```
