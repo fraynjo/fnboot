@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	. "fn/internal"
+	. "github.com/fraynjo/fnboot/internal"
 	"reflect"
 	"strconv"
 	"time"

@@ -1,7 +1,7 @@
 package array
 
 import (
-	. "fn/internal"
+	. "github.com/fraynjo/fnboot/internal"
 )
 
 func Chunk[T FnAny](array []T, size int) [][]T {
