@@ -1,4 +1,4 @@
-package internal
+package fnboot
 
 import (
 	"math/rand"

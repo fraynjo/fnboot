@@ -1,4 +1,4 @@
-package internal
+package fnboot
 
 func Chunk[T FnAny](array []T, size int) [][]T {
 	newArr := make([][]T, 0)

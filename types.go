@@ -1,4 +1,4 @@
-package internal
+package fnboot
 
 type FnT interface {
 	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~string | ~float32 | ~float64 | ~bool
