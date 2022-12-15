@@ -94,20 +94,20 @@ func IsMap[T FnInterface](value T) bool {
 	return t.Kind() == reflect.Map
 }
 
-func IsMatch[T1 FnInterface, T2 FnInterface](object T1, source T2) bool {
-	var m map[interface{}]interface{}
-	b, _ := json.Marshal(object)
-	_ = json.Unmarshal(b, &m)
-	var sm map[FnInterface]FnInterface
-	sb, _ := json.Marshal(source)
-	_ = json.Unmarshal(sb, &sm)
-	for k, v := range sm {
-		if vi, ok := m[k]; ok && vi == v {
-			return true
-		}
-	}
-	return false
-}
+//func IsMatch[T1 FnInterface, T2 FnInterface](object T1, source T2) bool {
+//	var m map[interface{}]interface{}
+//	b, _ := json.Marshal(object)
+//	_ = json.Unmarshal(b, &m)
+//	var sm map[FnInterface]FnInterface
+//	sb, _ := json.Marshal(source)
+//	_ = json.Unmarshal(sb, &sm)
+//	for k, v := range sm {
+//		if vi, ok := m[k]; ok && vi == v {
+//			return true
+//		}
+//	}
+//	return false
+//}
 
 func IsNil(object FnInterface) bool {
 	return object == nil
