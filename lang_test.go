@@ -278,16 +278,16 @@ func TestIsMap(t *testing.T) {
 	})
 }
 
-func TestIsMatch(t *testing.T) {
-	t.Run("map", func(t *testing.T) {
-		m1 := map[string]int{"a": 1, "b": 2}
-		result := IsMatch(m1, map[string]int{"b": 2})
-		t.Log(result)
-		if !result {
-			t.Fatal("fail")
-		}
-	})
-}
+//func TestIsMatch(t *testing.T) {
+//	t.Run("map", func(t *testing.T) {
+//		m1 := map[string]int{"a": 1, "b": 2}
+//		result := IsMatch(m1, map[string]int{"b": 2})
+//		t.Log(result)
+//		if !result {
+//			t.Fatal("fail")
+//		}
+//	})
+//}
 
 func TestIsNil(t *testing.T) {
 	t.Run("integer", func(t *testing.T) {
