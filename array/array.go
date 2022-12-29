@@ -1,6 +1,8 @@
-package fnboot
+package array
 
-func Chunk[T FnAny](array []T, size int) [][]T {
+import "github.com/fraynjo/fnboot"
+
+func Chunk[T fnboot.FnAny](array []T, size int) [][]T {
 	newArr := make([][]T, 0)
 	tempArr := make([]T, 0)
 	for k, v := range array {
@@ -30,13 +32,13 @@ func Compact(array []interface{}) []interface{} {
 	return newArr
 }
 
-func Concat[T FnAny](array []T, values ...T) []T {
+func Concat[T fnboot.FnAny](array []T, values ...T) []T {
 	newArr := array
 	newArr = append(newArr, values...)
 	return newArr
 }
 
-func Difference[T FnAny](array []T, values []T) []T {
+func Difference[T fnboot.FnAny](array []T, values []T) []T {
 	newArr := make([]T, 0)
 	valueMap := make(map[interface{}]bool)
 	for _, v := range values {
@@ -50,7 +52,7 @@ func Difference[T FnAny](array []T, values []T) []T {
 	return newArr
 }
 
-func DifferenceBy[T FnAny, E FnAny](array []T, values []T, f func(x T) E) []E {
+func DifferenceBy[T fnboot.FnAny, E fnboot.FnAny](array []T, values []T, f func(x T) E) []E {
 	newArr := make([]E, 0)
 	valueMap := make(map[interface{}]bool)
 	for _, v := range values {
