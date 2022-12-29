@@ -1,6 +1,9 @@
 package array
 
-import "github.com/fraynjo/fnboot"
+import (
+	"github.com/fraynjo/fnboot"
+	"github.com/fraynjo/fnboot/lang"
+)
 
 func Chunk[T fnboot.FnAny](array []T, size int) [][]T {
 	newArr := make([][]T, 0)
@@ -67,3 +70,51 @@ func DifferenceBy[T fnboot.FnAny, E fnboot.FnAny](array []T, values []T, f func(
 }
 
 // func DifferenceWith[T Fn_T](array []T, values []T, comparator)
+
+func Drop[T fnboot.FnAny](array []T, n int) []T {
+	if len(array) < n {
+		return make([]T, 0)
+	}
+	return array[n:]
+}
+
+func DropRight[T fnboot.FnAny](array []T, n int) []T {
+	if len(array) < n {
+		return make([]T, 0)
+	}
+	return array[:(len(array) - n)]
+}
+
+func Fill[T fnboot.FnAny](array []T, value T) []T {
+	newArr := make([]T, len(array))
+	for i := 0; i < len(array); i++ {
+		newArr[i] = value
+	}
+	return newArr
+}
+
+func FindIndex[T fnboot.FnAny](array []T, value T) int {
+	index := -1
+	for i, v := range array {
+		if lang.Eq(v, value) {
+			index = i
+			break
+		}
+	}
+	return index
+}
+
+func FindLastIndex[T fnboot.FnAny](array []T, value T) int {
+	index := -1
+	for i := len(array) - 1; i >= 0; i-- {
+		if lang.Eq(array[i], value) {
+			index = i
+			break
+		}
+	}
+	return index
+}
+
+func First[T fnboot.FnAny](array []T) T {
+	return array[0]
+}

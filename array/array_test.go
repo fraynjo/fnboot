@@ -67,3 +67,66 @@ func TestDifferenceBy(t *testing.T) {
 		t.Fatal("fail")
 	}
 }
+
+func TestDrop(t *testing.T) {
+	arr := []float64{2.2, 1.4, 3.3, 4.4}
+	result := Drop(arr, 1)
+	t.Log(result)
+	if len(result) != 3 {
+		t.Fatal("fail")
+	}
+}
+
+func TestDropRight(t *testing.T) {
+	arr := []float64{2.2, 1.4, 3.3, 4.4}
+	result := DropRight(arr, 2)
+	t.Log(result)
+	if len(result) != 2 {
+		t.Fatal("fail")
+	}
+}
+
+func TestFill(t *testing.T) {
+	arr := []float64{2.2, 1.4, 3.3, 4.4}
+	result := Fill(arr, 0.0)
+	t.Log(result)
+	if result[0] != 0.0 {
+		t.Fatal("fail")
+	}
+}
+
+func TestFindIndex(t *testing.T) {
+	arr := []float64{2.2, 1.4, 3.3, 4.4}
+	result := FindIndex(arr, 3.3)
+	t.Log(result)
+	if result != 2 {
+		t.Fatal("fail")
+	}
+}
+
+func TestFindLastIndex(t *testing.T) {
+	arr := []float64{2.2, 1.4, 3.3, 4.4, 3.3}
+	result := FindLastIndex(arr, 3.3)
+	t.Log(result)
+	if result != 4 {
+		t.Fatal("fail")
+	}
+}
+
+func TestFirst(t *testing.T) {
+	arr := []float64{2.2, 1.4, 3.3, 4.4, 3.3}
+	result := First(arr)
+	t.Log(result)
+	if result != 2.2 {
+		t.Fatal("fail")
+	}
+}
+
+func TestFlatten(t *testing.T) {
+	arr := []float64{2.2, 1.4, 3.3, 4.4, 3.3}
+	result := First(arr)
+	t.Log(result)
+	if result != 2.2 {
+		t.Fatal("fail")
+	}
+}
