@@ -1,4 +1,4 @@
-package fnboot
+package number
 
 import "testing"
 

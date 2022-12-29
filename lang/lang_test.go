@@ -1,4 +1,4 @@
-package fnboot
+package lang
 
 import (
 	"bytes"
