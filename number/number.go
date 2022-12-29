@@ -1,11 +1,12 @@
-package fnboot
+package number
 
 import (
+	"github.com/fraynjo/fnboot"
 	"math/rand"
 	"time"
 )
 
-func InRange[T FnNumber, T1 FnNumber, T2 FnNumber](value T, start T1, end T2) bool {
+func InRange[T fnboot.FnNumber, T1 fnboot.FnNumber, T2 fnboot.FnNumber](value T, start T1, end T2) bool {
 	return float64(value) >= float64(start) && float64(value) <= float64(end)
 }
 

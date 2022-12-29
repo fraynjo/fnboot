@@ -1,20 +1,21 @@
-package fnboot
+package lang
 
 import (
 	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/fraynjo/fnboot"
 	"reflect"
 	"strconv"
 	"time"
 )
 
-func CastArray[T FnAny](value T) []T {
+func CastArray[T fnboot.FnAny](value T) []T {
 	return []T{value}
 }
 
-func ConformsTo[T FnInterface, T1, T2 FnT](object T, source map[T1]func(T2) bool) bool {
+func ConformsTo[T fnboot.FnInterface, T1, T2 fnboot.FnT](object T, source map[T1]func(T2) bool) bool {
 	var m map[T1]T2
 	b, _ := json.Marshal(object)
 	_ = json.Unmarshal(b, &m)
@@ -37,33 +38,33 @@ func Eq(value any, other any) bool {
 	return reflect.DeepEqual(value, other)
 }
 
-func Gt[T FnNumber, T1 FnNumber](value T, other T1) bool {
+func Gt[T fnboot.FnNumber, T1 fnboot.FnNumber](value T, other T1) bool {
 	return float64(value) > float64(other)
 }
 
-func Gte[T FnNumber, T1 FnNumber](value T, other T1) bool {
+func Gte[T fnboot.FnNumber, T1 fnboot.FnNumber](value T, other T1) bool {
 	return float64(value) >= float64(other)
 }
 
-func IsArray[T FnInterface](value T) bool {
+func IsArray[T fnboot.FnInterface](value T) bool {
 	t := reflect.TypeOf(value).Kind()
 	return t == reflect.Array || t == reflect.Slice
 }
 
-func IsBool[T FnInterface](value T) bool {
+func IsBool[T fnboot.FnInterface](value T) bool {
 	t := reflect.TypeOf(value).Kind()
 	return t == reflect.Bool
 }
 
-func IsBuffer[T FnInterface](value T) bool {
+func IsBuffer[T fnboot.FnInterface](value T) bool {
 	return reflect.TypeOf(value) == reflect.TypeOf(&bytes.Buffer{})
 }
 
-func IsTime[T FnInterface](value T) bool {
+func IsTime[T fnboot.FnInterface](value T) bool {
 	return reflect.TypeOf(value) == reflect.TypeOf(time.Now())
 }
 
-func IsEmpty[T FnInterface](value T) bool {
+func IsEmpty[T fnboot.FnInterface](value T) bool {
 	val := reflect.ValueOf(value)
 	tKind := reflect.TypeOf(value).Kind()
 	if tKind == reflect.Slice || tKind == reflect.Map || tKind == reflect.Array {
@@ -72,15 +73,15 @@ func IsEmpty[T FnInterface](value T) bool {
 	return val.IsZero()
 }
 
-func IsError[T FnInterface](value T) bool {
+func IsError[T fnboot.FnInterface](value T) bool {
 	return reflect.TypeOf(value) == reflect.TypeOf(errors.New(""))
 }
 
-func IsFunc[T FnInterface](value T) bool {
+func IsFunc[T fnboot.FnInterface](value T) bool {
 	return reflect.TypeOf(value) == reflect.TypeOf(func() {})
 }
 
-func IsInteger[T FnInterface](value T) bool {
+func IsInteger[T fnboot.FnInterface](value T) bool {
 	switch reflect.TypeOf(value).Kind() {
 	case reflect.Int8, reflect.Int16, reflect.Int, reflect.Int32, reflect.Int64, reflect.Uint8, reflect.Uint16,
 		reflect.Uint, reflect.Uint32, reflect.Uint64:
@@ -89,7 +90,7 @@ func IsInteger[T FnInterface](value T) bool {
 	return false
 }
 
-func IsMap[T FnInterface](value T) bool {
+func IsMap[T fnboot.FnInterface](value T) bool {
 	t := reflect.TypeOf(value)
 	return t.Kind() == reflect.Map
 }
@@ -109,33 +110,33 @@ func IsMap[T FnInterface](value T) bool {
 //	return false
 //}
 
-func IsNil(object FnInterface) bool {
+func IsNil(object fnboot.FnInterface) bool {
 	return object == nil
 }
 
-func IsNumber(value FnInterface) bool {
+func IsNumber(value fnboot.FnInterface) bool {
 	return IsInteger(value) || IsFloat(value)
 }
 
-func IsString(value FnInterface) bool {
+func IsString(value fnboot.FnInterface) bool {
 	t := reflect.TypeOf(value).Kind()
 	return t == reflect.String
 }
 
-func IsFloat(value FnInterface) bool {
+func IsFloat(value fnboot.FnInterface) bool {
 	t := reflect.TypeOf(value).Kind()
 	return t == reflect.Float32 || t == reflect.Float64
 }
 
-func Lt[T FnNumber, T1 FnNumber](value T, other T1) bool {
+func Lt[T fnboot.FnNumber, T1 fnboot.FnNumber](value T, other T1) bool {
 	return float64(value) < float64(other)
 }
 
-func Lte[T FnNumber, T1 FnNumber](value T, other T1) bool {
+func Lte[T fnboot.FnNumber, T1 fnboot.FnNumber](value T, other T1) bool {
 	return float64(value) <= float64(other)
 }
 
-func ToInteger(value FnInterface) int64 {
+func ToInteger(value fnboot.FnInterface) int64 {
 	if IsInteger(value) {
 		return int64(value.(int))
 	}
@@ -151,7 +152,7 @@ func ToInteger(value FnInterface) int64 {
 	return int64(0)
 }
 
-func ToFloat(value FnInterface) float64 {
+func ToFloat(value fnboot.FnInterface) float64 {
 	if IsInteger(value) {
 		return float64(value.(int))
 	}
@@ -165,7 +166,7 @@ func ToFloat(value FnInterface) float64 {
 	return float64(0)
 }
 
-func ToString(value FnInterface) string {
+func ToString(value fnboot.FnInterface) string {
 	if IsString(value) {
 		return value.(string)
 	}
