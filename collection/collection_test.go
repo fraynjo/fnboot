@@ -86,3 +86,53 @@ func TestEveryArray(t *testing.T) {
 		}
 	})
 }
+
+func TestFilterArray(t *testing.T) {
+	t.Run("array", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": false,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": true,
+		}
+		arr := []map[string]interface{}{obj1, obj2}
+		result := filterArray(arr, func(index interface{}, item interface{}) bool {
+			obj := ToMap[string](item)
+			return obj["active"].(bool)
+		})
+		resultMap := ToMap[string](result)
+		t.Log(resultMap["active"].(bool))
+		if !resultMap["active"].(bool) {
+			t.Fatal("fail")
+		}
+	})
+}
+
+func TestFilterObj(t *testing.T) {
+	t.Run("map", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": false,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": true,
+		}
+		arr := map[string]interface{}{"obj1": obj1, "obj2": obj2}
+		result := filterObj(arr, func(index interface{}, item interface{}) bool {
+			obj := ToMap[string](item)
+			return obj["active"].(bool)
+		})
+		resultMap := ToMap[string](result)
+		t.Log(resultMap["active"].(bool))
+		if !resultMap["active"].(bool) {
+			t.Fatal("fail")
+		}
+	})
+}

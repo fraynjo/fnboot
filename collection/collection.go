@@ -14,6 +14,13 @@ func ToMap[T fnboot.FnT](obj interface{}) map[T]interface{} {
 	return m
 }
 
+func ToArray(obj interface{}) []interface{} {
+	var arr []interface{}
+	bs, _ := json.Marshal(obj)
+	_ = json.Unmarshal(bs, &arr)
+	return arr
+}
+
 func ForeachArray[T fnboot.FnInterface, T1 fnboot.FnInterface](arr []T, f func(index int, item T) T1) []T1 {
 	tempArr := make([]T1, len(arr))
 	for i, v := range arr {
@@ -81,8 +88,9 @@ func Filter(obj interface{}, f func(key interface{}, item interface{}) bool) int
 	return nil
 }
 
-func filterArray(arr []interface{}, f func(key interface{}, item interface{}) bool) interface{} {
-	for i, v := range arr {
+func filterArray(arr interface{}, f func(key interface{}, item interface{}) bool) interface{} {
+	newArr := ToArray(arr)
+	for i, v := range newArr {
 		if f(i, v) {
 			return v
 		}
