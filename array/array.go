@@ -201,7 +201,7 @@ func IntersectionBy[T fnboot.FnAny, T1 fnboot.FnAny](f func(v T) T1, arraies ...
 	return resultArray
 }
 
-func InterfaceToArray(array interface{}) []interface{} {
+func ToArray(array interface{}) []interface{} {
 	size := reflect.ValueOf(array).Len()
 	if size == 0 {
 		return make([]interface{}, 0)
@@ -217,7 +217,7 @@ func Join(array interface{}, sep string) string {
 	if !lang.IsArray(array) {
 		return ""
 	}
-	arr := InterfaceToArray(array)
+	arr := ToArray(array)
 	if len(arr) == 0 {
 		return ""
 	}
