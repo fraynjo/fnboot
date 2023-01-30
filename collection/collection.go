@@ -133,3 +133,32 @@ func findObj(obj interface{}, f func(key interface{}, value interface{}) bool) i
 	}
 	return nil
 }
+
+func FindLast(obj interface{}, f func(key interface{}, item interface{}) bool) interface{} {
+	if lang.IsArray(obj) {
+		arr := array.ToArray(obj)
+		return findLastArray(arr, f)
+	}
+	if lang.IsMap(obj) {
+		return findLastObj(obj, f)
+	}
+	return nil
+}
+
+func findLastArray(arr interface{}, f func(key interface{}, item interface{}) bool) interface{} {
+	newArr := array.ToArray(arr)
+	for i := len(newArr) - 1; i >= 0; i-- {
+		if f(i, newArr[i]) {
+			return newArr[i]
+		}
+	}
+	return nil
+}
+
+func findLastObj(obj interface{}, f func(key interface{}, value interface{}) bool) interface{} {
+	filterObjs := filterObj(obj, f)
+	if len(filterObjs) >= 0 {
+		return array.Last(filterObjs)
+	}
+	return nil
+}

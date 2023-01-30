@@ -181,3 +181,50 @@ func TestFind(t *testing.T) {
 		}
 	})
 }
+
+func TestFindLast(t *testing.T) {
+	t.Run("map", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": true,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": true,
+		}
+		arr := map[string]interface{}{"obj1": obj1, "obj2": obj2}
+		result := FindLast(arr, func(index interface{}, item interface{}) bool {
+			obj := ToMap[string](item)
+			return obj["active"].(bool)
+		})
+		m := ToMap[string](result)
+		t.Log(m)
+		if m["user"] != "fred" {
+			t.Fatal("fail")
+		}
+	})
+	t.Run("array", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": true,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": true,
+		}
+		arr := []map[string]interface{}{obj1, obj2}
+		result := FindLast(arr, func(index interface{}, item interface{}) bool {
+			obj := ToMap[string](item)
+			return obj["active"].(bool)
+		})
+		m := ToMap[string](result)
+		t.Log(m)
+		if m["user"] != "fred" {
+			t.Fatal("fail")
+		}
+	})
+}
