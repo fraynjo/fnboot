@@ -47,7 +47,7 @@ func TestForeachRightArray(t *testing.T) {
 	})
 }
 
-func TestEveryArray(t *testing.T) {
+func TestEvery(t *testing.T) {
 	t.Run("array", func(t *testing.T) {
 		obj1 := map[string]interface{}{
 			"user":   "barney",
@@ -224,6 +224,47 @@ func TestFindLast(t *testing.T) {
 		m := ToMap[string](result)
 		t.Log(m)
 		if m["user"] != "fred" {
+			t.Fatal("fail")
+		}
+	})
+}
+
+func TestIncludes(t *testing.T) {
+	t.Run("array", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": false,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": false,
+		}
+		arr := []map[string]interface{}{obj1, obj2}
+		result := Includes(arr, func(index interface{}, item interface{}) bool {
+			obj := ToMap[string](item)
+			return !obj["active"].(bool)
+		})
+		t.Log(result)
+		if !result {
+			t.Fatal("fail")
+		}
+	})
+	t.Run("map", func(t *testing.T) {
+		obj := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": false,
+		}
+		result := Includes(obj, func(key interface{}, value interface{}) bool {
+			if key == "age" {
+				return value.(float64) == 30
+			}
+			return false
+		})
+		t.Log(result)
+		if !result {
 			t.Fatal("fail")
 		}
 	})

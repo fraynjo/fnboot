@@ -59,9 +59,7 @@ func everyArray(arr []interface{}, f func(key interface{}, item interface{}) boo
 }
 
 func everyObj(obj interface{}, f func(key interface{}, value interface{}) bool) bool {
-	var m map[string]interface{}
-	bs, _ := json.Marshal(obj)
-	_ = json.Unmarshal(bs, &m)
+	m := ToMap[string](obj)
 	for k, v := range m {
 		if f(k, v) {
 			return true
@@ -161,4 +159,34 @@ func findLastObj(obj interface{}, f func(key interface{}, value interface{}) boo
 		return array.Last(filterObjs)
 	}
 	return nil
+}
+
+func Includes(obj interface{}, f func(key interface{}, item interface{}) bool) bool {
+	if lang.IsArray(obj) {
+		arr := array.ToArray(obj)
+		return includeArray(arr, f)
+	}
+	if lang.IsMap(obj) {
+		return includeObj(obj, f)
+	}
+	return false
+}
+
+func includeArray(arr []interface{}, f func(key interface{}, item interface{}) bool) bool {
+	for i, v := range arr {
+		if f(i, v) {
+			return true
+		}
+	}
+	return false
+}
+
+func includeObj(obj interface{}, f func(key interface{}, value interface{}) bool) bool {
+	m := ToMap[string](obj)
+	for k, v := range m {
+		if f(k, v) {
+			return true
+		}
+	}
+	return false
 }
