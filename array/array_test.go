@@ -165,7 +165,7 @@ func TestIntersectionBy(t *testing.T) {
 
 func TestInterfaceToArray(t *testing.T) {
 	arr := []float64{2.2, 1.4, 3.3}
-	result := InterfaceToArray(arr)
+	result := ToArray(arr)
 	t.Log(result)
 	if len(result) != 3 {
 		t.Fatal("fail")

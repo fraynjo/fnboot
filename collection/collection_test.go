@@ -1,6 +1,7 @@
 package collection
 
 import (
+	"github.com/fraynjo/fnboot/array"
 	"testing"
 )
 
@@ -87,37 +88,12 @@ func TestEveryArray(t *testing.T) {
 	})
 }
 
-func TestFilterArray(t *testing.T) {
-	t.Run("array", func(t *testing.T) {
-		obj1 := map[string]interface{}{
-			"user":   "barney",
-			"age":    30,
-			"active": false,
-		}
-		obj2 := map[string]interface{}{
-			"user":   "fred",
-			"age":    36,
-			"active": true,
-		}
-		arr := []map[string]interface{}{obj1, obj2}
-		result := filterArray(arr, func(index interface{}, item interface{}) bool {
-			obj := ToMap[string](item)
-			return obj["active"].(bool)
-		})
-		resultMap := ToMap[string](result)
-		t.Log(resultMap["active"].(bool))
-		if !resultMap["active"].(bool) {
-			t.Fatal("fail")
-		}
-	})
-}
-
-func TestFilterObj(t *testing.T) {
+func TestFilter(t *testing.T) {
 	t.Run("map", func(t *testing.T) {
 		obj1 := map[string]interface{}{
 			"user":   "barney",
 			"age":    30,
-			"active": false,
+			"active": true,
 		}
 		obj2 := map[string]interface{}{
 			"user":   "fred",
@@ -125,13 +101,82 @@ func TestFilterObj(t *testing.T) {
 			"active": true,
 		}
 		arr := map[string]interface{}{"obj1": obj1, "obj2": obj2}
-		result := filterObj(arr, func(index interface{}, item interface{}) bool {
+		result := Filter(arr, func(index interface{}, item interface{}) bool {
 			obj := ToMap[string](item)
 			return obj["active"].(bool)
 		})
-		resultMap := ToMap[string](result)
-		t.Log(resultMap["active"].(bool))
-		if !resultMap["active"].(bool) {
+		resultArr := array.ToArray(result)
+		t.Log(resultArr)
+		if len(resultArr) != 2 {
+			t.Fatal("fail")
+		}
+	})
+	t.Run("array", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": true,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": true,
+		}
+		arr := []map[string]interface{}{obj1, obj2}
+		result := Filter(arr, func(index interface{}, item interface{}) bool {
+			obj := ToMap[string](item)
+			return obj["active"].(bool)
+		})
+		resultArr := array.ToArray(result)
+		t.Log(resultArr)
+		if len(resultArr) != 2 {
+			t.Fatal("fail")
+		}
+	})
+}
+
+func TestFind(t *testing.T) {
+	t.Run("map", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": true,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": true,
+		}
+		arr := map[string]interface{}{"obj1": obj1, "obj2": obj2}
+		result := Find(arr, func(index interface{}, item interface{}) bool {
+			obj := ToMap[string](item)
+			return obj["active"].(bool)
+		})
+		m := ToMap[string](result)
+		t.Log(m)
+		if m["user"] != "barney" {
+			t.Fatal("fail")
+		}
+	})
+	t.Run("array", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": true,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": true,
+		}
+		arr := []map[string]interface{}{obj1, obj2}
+		result := Find(arr, func(index interface{}, item interface{}) bool {
+			obj := ToMap[string](item)
+			return obj["active"].(bool)
+		})
+		m := ToMap[string](result)
+		t.Log(m)
+		if m["user"] != "barney" {
 			t.Fatal("fail")
 		}
 	})
