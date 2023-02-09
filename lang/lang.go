@@ -46,7 +46,7 @@ func Gte[T fnboot.FnNumber, T1 fnboot.FnNumber](value T, other T1) bool {
 	return float64(value) >= float64(other)
 }
 
-func IsArray[T fnboot.FnInterface](value T) bool {
+func IsArray(value interface{}) bool {
 	t := reflect.TypeOf(value).Kind()
 	return t == reflect.Array || t == reflect.Slice
 }
@@ -77,10 +77,6 @@ func IsError[T fnboot.FnInterface](value T) bool {
 	return reflect.TypeOf(value) == reflect.TypeOf(errors.New(""))
 }
 
-func IsFunc[T fnboot.FnInterface](value T) bool {
-	return reflect.TypeOf(value) == reflect.TypeOf(func() {})
-}
-
 func IsInteger[T fnboot.FnInterface](value T) bool {
 	switch reflect.TypeOf(value).Kind() {
 	case reflect.Int8, reflect.Int16, reflect.Int, reflect.Int32, reflect.Int64, reflect.Uint8, reflect.Uint16,
@@ -90,7 +86,7 @@ func IsInteger[T fnboot.FnInterface](value T) bool {
 	return false
 }
 
-func IsMap[T fnboot.FnInterface](value T) bool {
+func IsMap(value interface{}) bool {
 	t := reflect.TypeOf(value)
 	return t.Kind() == reflect.Map
 }

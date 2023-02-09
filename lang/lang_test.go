@@ -239,16 +239,6 @@ func TestIsError(t *testing.T) {
 	})
 }
 
-func TestIsFunc(t *testing.T) {
-	t.Run("func", func(t *testing.T) {
-		result := IsFunc(func() { fmt.Println("1") })
-		t.Log(result)
-		if !result {
-			t.Fatal("fail")
-		}
-	})
-}
-
 func TestIsInteger(t *testing.T) {
 	t.Run("int", func(t *testing.T) {
 		result := IsInteger(int8(1))

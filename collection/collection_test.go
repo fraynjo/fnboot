@@ -269,3 +269,72 @@ func TestIncludes(t *testing.T) {
 		}
 	})
 }
+
+func TestKeyBy(t *testing.T) {
+	t.Run("array", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": false,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": false,
+		}
+		arr := []map[string]interface{}{obj1, obj2}
+		result := KeyBy(arr, func(index interface{}, item interface{}) string {
+			m := ToMap[string](item)
+			return m["user"].(string)
+		})
+		t.Log(result)
+		if len(result) != 2 {
+			t.Fatal("fail")
+		}
+	})
+	t.Run("map", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": false,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": false,
+		}
+		obj := map[string]interface{}{
+			"obj1": obj1,
+			"obj2": obj2,
+		}
+		result := KeyBy(obj, func(key interface{}, value interface{}) string {
+			m := ToMap[string](value)
+			return m["user"].(string)
+		})
+		t.Log(result)
+		if len(result) != 2 {
+			t.Fatal("fail")
+		}
+	})
+	t.Run("string", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": false,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": false,
+		}
+		obj := map[string]interface{}{
+			"obj1": obj1,
+			"obj2": obj2,
+		}
+		result := KeyBy(obj, "user")
+		t.Log(result)
+		if len(result) != 2 {
+			t.Fatal("fail")
+		}
+	})
+}

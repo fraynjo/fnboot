@@ -5,6 +5,7 @@ import (
 	"github.com/fraynjo/fnboot"
 	"github.com/fraynjo/fnboot/array"
 	"github.com/fraynjo/fnboot/lang"
+	"reflect"
 )
 
 func ToMap[T fnboot.FnT](obj interface{}) map[T]interface{} {
@@ -190,3 +191,58 @@ func includeObj(obj interface{}, f func(key interface{}, value interface{}) bool
 	}
 	return false
 }
+
+
+func KeyBy(obj interface{}, by interface{}) (m map[string]interface{}) {
+	if lang.IsArray(obj) {
+		arr := array.ToArray(obj)
+		return keyByArray(arr, by)
+	}
+	if lang.IsMap(obj) {
+		return keyByObj(obj, by)
+	}
+	return nil
+}
+
+func keyByArray(arr []interface{}, by interface{}) map[string]interface{} {
+	m := make(map[string]interface{})
+	var f func(key interface{}, v interface{}) string
+	if reflect.TypeOf(by) == reflect.TypeOf(f) {
+		f := by.(func(key interface{}, item interface{}) string)
+		for i, v := range arr {
+			m[f(i, v)] = v
+		}
+	} else if lang.IsString(by) {
+		keyStr := by.(string)
+		for _, v := range m {
+			vMap := ToMap[string](v)
+			if key, ok := vMap[keyStr]; ok {
+				m[key.(string)] = v
+			}
+		}
+	}
+	return m
+}
+
+func keyByObj(obj interface{}, by interface{}) map[string]interface{} {
+	m := make(map[string]interface{})
+	objMap := ToMap[string](obj)
+	var f func(key interface{}, v interface{}) string
+	if reflect.TypeOf(by) == reflect.TypeOf(f) {
+		f := by.(func(key interface{}, item interface{}) string)
+		for k, v := range objMap {
+			m[f(k, v)] = v
+		}
+	} else if lang.IsString(by) {
+		keyStr := by.(string)
+		for _, v := range objMap {
+			vMap := ToMap[string](v)
+			if key, ok := vMap[keyStr]; ok {
+				m[key.(string)] = v
+			}
+		}
+	}
+	return m
+}
+
+
