@@ -3,7 +3,6 @@ package lang
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"testing"
 	"time"
 )
