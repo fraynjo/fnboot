@@ -349,3 +349,14 @@ func SampleSize[T fnboot.FnAny](arr []T, size int) []T {
 	}
 	return result
 }
+
+func Shuffle[T fnboot.FnAny](arr []T) []T {
+	result := make([]T, 0)
+	size := len(arr)
+	for i:=1; i<=size; i++ {
+		index := number.Random(0, len(arr))
+		result = append(result, arr[index])
+		arr = array.RemoveBy(arr, index)
+	}
+	return result
+}

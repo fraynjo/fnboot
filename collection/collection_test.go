@@ -439,13 +439,23 @@ func TestSample(t *testing.T) {
 	})
 }
 
-
 func TestSampleSize(t *testing.T) {
 	t.Run("array", func(t *testing.T) {
 		arr := []int{1, 2, 3, 4, 5, 6}
 		result := SampleSize[int](arr, 3)
 		t.Log(result)
 		if len(result) != 3 {
+			t.Fatal("fail")
+		}
+	})
+}
+
+func TestShuffle(t *testing.T) {
+	t.Run("array", func(t *testing.T) {
+		arr := []int{1, 2, 3, 4, 5, 6}
+		result := Shuffle[int](arr)
+		t.Log(result)
+		if len(result) != 6 {
 			t.Fatal("fail")
 		}
 	})
