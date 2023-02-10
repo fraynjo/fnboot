@@ -145,7 +145,7 @@ func TestFind(t *testing.T) {
 		obj2 := map[string]interface{}{
 			"user":   "fred",
 			"age":    36,
-			"active": true,
+			"active": false,
 		}
 		arr := map[string]interface{}{"obj1": obj1, "obj2": obj2}
 		result := Find(arr, func(index interface{}, item interface{}) bool {
