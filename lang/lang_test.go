@@ -3,7 +3,6 @@ package lang
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"testing"
 	"time"
 )
@@ -232,16 +231,6 @@ func TestIsEmpty(t *testing.T) {
 func TestIsError(t *testing.T) {
 	t.Run("error", func(t *testing.T) {
 		result := IsError(errors.New("1"))
-		t.Log(result)
-		if !result {
-			t.Fatal("fail")
-		}
-	})
-}
-
-func TestIsFunc(t *testing.T) {
-	t.Run("func", func(t *testing.T) {
-		result := IsFunc(func() { fmt.Println("1") })
 		t.Log(result)
 		if !result {
 			t.Fatal("fail")

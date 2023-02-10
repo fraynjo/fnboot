@@ -46,12 +46,12 @@ func Gte[T fnboot.FnNumber, T1 fnboot.FnNumber](value T, other T1) bool {
 	return float64(value) >= float64(other)
 }
 
-func IsArray[T fnboot.FnInterface](value T) bool {
+func IsArray(value interface{}) bool {
 	t := reflect.TypeOf(value).Kind()
 	return t == reflect.Array || t == reflect.Slice
 }
 
-func IsBool[T fnboot.FnInterface](value T) bool {
+func IsBool(value interface{}) bool {
 	t := reflect.TypeOf(value).Kind()
 	return t == reflect.Bool
 }
@@ -60,11 +60,11 @@ func IsBuffer[T fnboot.FnInterface](value T) bool {
 	return reflect.TypeOf(value) == reflect.TypeOf(&bytes.Buffer{})
 }
 
-func IsTime[T fnboot.FnInterface](value T) bool {
+func IsTime(value interface{}) bool {
 	return reflect.TypeOf(value) == reflect.TypeOf(time.Now())
 }
 
-func IsEmpty[T fnboot.FnInterface](value T) bool {
+func IsEmpty(value interface{}) bool {
 	val := reflect.ValueOf(value)
 	tKind := reflect.TypeOf(value).Kind()
 	if tKind == reflect.Slice || tKind == reflect.Map || tKind == reflect.Array {
@@ -73,15 +73,11 @@ func IsEmpty[T fnboot.FnInterface](value T) bool {
 	return val.IsZero()
 }
 
-func IsError[T fnboot.FnInterface](value T) bool {
+func IsError(value interface{}) bool {
 	return reflect.TypeOf(value) == reflect.TypeOf(errors.New(""))
 }
 
-func IsFunc[T fnboot.FnInterface](value T) bool {
-	return reflect.TypeOf(value) == reflect.TypeOf(func() {})
-}
-
-func IsInteger[T fnboot.FnInterface](value T) bool {
+func IsInteger(value interface{}) bool {
 	switch reflect.TypeOf(value).Kind() {
 	case reflect.Int8, reflect.Int16, reflect.Int, reflect.Int32, reflect.Int64, reflect.Uint8, reflect.Uint16,
 		reflect.Uint, reflect.Uint32, reflect.Uint64:
@@ -90,7 +86,7 @@ func IsInteger[T fnboot.FnInterface](value T) bool {
 	return false
 }
 
-func IsMap[T fnboot.FnInterface](value T) bool {
+func IsMap(value interface{}) bool {
 	t := reflect.TypeOf(value)
 	return t.Kind() == reflect.Map
 }

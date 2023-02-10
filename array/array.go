@@ -292,12 +292,20 @@ func PullAt[T fnboot.FnAny](array []T, indexs []int) []T {
 	return tempArr
 }
 
-func Remove[T fnboot.FnAny](array []T, f func(v T) bool) []T {
+func RemoveBy[T fnboot.FnAny](array []T, by interface{}) []T {
 	tempArr := make([]T, 0)
-	for _, v := range array {
-		if !f(v) {
-			tempArr = append(tempArr, v)
+	var ft func(v T) bool
+	if reflect.TypeOf(by) == reflect.TypeOf(ft) {
+		f := by.(func(v T) bool)
+		for _, v := range array {
+			if !f(v) {
+				tempArr = append(tempArr, v)
+			}
 		}
+	}
+	if lang.IsInteger(by) {
+		index := by.(int)
+		return append(array[:index], array[index+1:]...)
 	}
 	return tempArr
 }
