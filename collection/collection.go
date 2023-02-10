@@ -288,4 +288,19 @@ func OrderBy(obj interface{}, field string, direction string) []interface{} {
 	return newArr
 }
 
+func ReduceArray[T fnboot.FnAny, T1 fnboot.FnAny](arr []T1, f func(result T, item T1) T) interface{} {
+	var result T
+	for _, v := range arr {
+		result = f(result, v)
+	}
+	return result
+}
+
+func ReduceArrayRight[T fnboot.FnAny, T1 fnboot.FnAny](arr []T1, f func(result T, item T1) T) interface{} {
+	var result T
+	for i:=len(arr)-1; i>=0; i-- {
+		result = f(result, arr[i])
+	}
+	return result
+}
 

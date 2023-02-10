@@ -359,3 +359,29 @@ func TestOrderBy(t *testing.T) {
 		}
 	})
 }
+
+func TestReduce(t *testing.T) {
+	t.Run("array", func(t *testing.T) {
+		arr := []int{1, 2, 3}
+		result := ReduceArray(arr, func(res int, item int) int {
+			return res + item
+		})
+		t.Log(result)
+		if result != 6 {
+			t.Fatal("fail")
+		}
+	})
+}
+
+func TestReduceRight(t *testing.T) {
+	t.Run("array", func(t *testing.T) {
+		arr := []int{1, 2, 3}
+		result := ReduceArrayRight(arr, func(res int, item int) int {
+			return res + item
+		})
+		t.Log(result)
+		if result != 6 {
+			t.Fatal("fail")
+		}
+	})
+}
