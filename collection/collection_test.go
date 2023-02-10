@@ -338,3 +338,24 @@ func TestKeyBy(t *testing.T) {
 		}
 	})
 }
+
+func TestOrderBy(t *testing.T) {
+	t.Run("array", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    37,
+			"active": false,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": false,
+		}
+		arr := []map[string]interface{}{obj1, obj2}
+		result := OrderBy(arr, "age", "desc")
+		t.Log(result)
+		if len(result) != 2 {
+			t.Fatal("fail")
+		}
+	})
+}

@@ -6,6 +6,8 @@ import (
 	"github.com/fraynjo/fnboot/array"
 	"github.com/fraynjo/fnboot/lang"
 	"reflect"
+	"sort"
+	"strings"
 )
 
 func ToMap[T fnboot.FnT](obj interface{}) map[T]interface{} {
@@ -243,6 +245,47 @@ func keyByObj(obj interface{}, by interface{}) map[string]interface{} {
 		}
 	}
 	return m
+}
+
+func OrderBy(obj interface{}, field string, direction string) []interface{} {
+	arr := array.ToArray(obj)
+	m := make(map[interface{}]interface{})
+	var ktype string
+	strArr := make([]string, 0)
+	numArr := make([]float64, 0)
+	for i, v := range arr {
+		vm := ToMap[string](v)
+		if lang.IsString(vm[field]) {
+			ktype = "string"
+			strArr = append(strArr, vm[field].(string))
+		} else if lang.IsNumber(vm[field]) {
+			ktype = "number"
+			numArr = append(numArr, vm[field].(float64))
+		} else {
+			break
+		}
+		m[vm[field]] = i
+	}
+	newArr := make([]interface{}, 0)
+	if ktype == "string" {
+		sort.Strings(strArr)
+		if strings.ToLower(direction) == "desc" {
+			strArr = array.Reverse[string](strArr)
+		}
+		for _, v := range strArr {
+			newArr = append(newArr, m[v])
+		}
+	}
+	if ktype == "number" {
+		sort.Float64s(numArr)
+		if strings.ToLower(direction) == "desc" {
+			numArr = array.Reverse[float64](numArr)
+		}
+		for _, v := range numArr {
+			newArr = append(newArr, arr[m[v].(int)])
+		}
+	}
+	return newArr
 }
 
 
