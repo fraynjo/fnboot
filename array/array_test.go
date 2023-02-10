@@ -235,15 +235,25 @@ func TestPullAt(t *testing.T) {
 	}
 }
 
-func TestRemove(t *testing.T) {
-	arr := []float64{2.2, 1.4, 3.3, 4.4, 3.3}
-	result := Remove(arr, func(v float64) bool {
-		return v == 3.3
+func TestRemoveBy(t *testing.T) {
+	t.Run("number func", func(t *testing.T) {
+		arr := []float64{2.2, 1.4, 3.3, 4.4, 3.3}
+		result := RemoveBy(arr, func(v float64) bool {
+			return v == 3.3
+		})
+		t.Log(result)
+		if len(result) != 3 {
+			t.Fatal("fail")
+		}
 	})
-	t.Log(result)
-	if len(result) != 3 {
-		t.Fatal("fail")
-	}
+	t.Run("number index", func(t *testing.T) {
+		arr := []float64{2.2, 1.4, 3.3, 4.4, 3.3}
+		result := RemoveBy(arr, 2)
+		t.Log(result)
+		if len(result) != 4 {
+			t.Fatal("fail")
+		}
+	})
 }
 
 func TestReverse(t *testing.T) {

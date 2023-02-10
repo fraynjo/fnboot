@@ -5,6 +5,7 @@ import (
 	"github.com/fraynjo/fnboot"
 	"github.com/fraynjo/fnboot/array"
 	"github.com/fraynjo/fnboot/lang"
+	"github.com/fraynjo/fnboot/number"
 	"reflect"
 	"sort"
 	"strings"
@@ -334,3 +335,17 @@ func someObj(obj interface{}, f func(key interface{}, value interface{}) bool) b
 	return false
 }
 
+func Sample[T fnboot.FnAny](arr []T) T {
+	randInt := number.Random(0, len(arr))
+	return arr[randInt]
+}
+
+func SampleSize[T fnboot.FnAny](arr []T, size int) []T {
+	result := make([]T, 0)
+	for i:=1; i<=size; i++ {
+		index := number.Random(0, len(arr))
+		result = append(result, arr[index])
+		arr = array.RemoveBy(arr, index)
+	}
+	return result
+}

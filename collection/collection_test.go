@@ -428,4 +428,25 @@ func TestSome(t *testing.T) {
 	})
 }
 
+func TestSample(t *testing.T) {
+	t.Run("array", func(t *testing.T) {
+		arr := []int{1, 2, 3}
+		result := Sample[int](arr)
+		t.Log(result)
+		if result != 1 && result != 2 && result != 3 {
+			t.Fatal("fail")
+		}
+	})
+}
 
+
+func TestSampleSize(t *testing.T) {
+	t.Run("array", func(t *testing.T) {
+		arr := []int{1, 2, 3, 4, 5, 6}
+		result := SampleSize[int](arr, 3)
+		t.Log(result)
+		if len(result) != 3 {
+			t.Fatal("fail")
+		}
+	})
+}
