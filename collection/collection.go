@@ -64,11 +64,11 @@ func everyArray(arr []interface{}, f func(key interface{}, item interface{}) boo
 func everyObj(obj interface{}, f func(key interface{}, value interface{}) bool) bool {
 	m := ToMap[string](obj)
 	for k, v := range m {
-		if f(k, v) {
-			return true
+		if !f(k, v) {
+			return false
 		}
 	}
-	return false
+	return true
 }
 
 func Filter(obj interface{}, f func(key interface{}, item interface{}) bool) []interface{} {
@@ -302,5 +302,35 @@ func ReduceArrayRight[T fnboot.FnAny, T1 fnboot.FnAny](arr []T1, f func(result T
 		result = f(result, arr[i])
 	}
 	return result
+}
+
+func Some(obj interface{}, f func(key interface{}, item interface{}) bool) bool {
+	if lang.IsArray(obj) {
+		arr := array.ToArray(obj)
+		return someArray(arr, f)
+	}
+	if lang.IsMap(obj) {
+		return someObj(obj, f)
+	}
+	return false
+}
+
+func someArray(arr []interface{}, f func(key interface{}, item interface{}) bool) bool {
+	for i, v := range arr {
+		if f(i, v) {
+			return true
+		}
+	}
+	return false
+}
+
+func someObj(obj interface{}, f func(key interface{}, value interface{}) bool) bool {
+	m := ToMap[string](obj)
+	for k, v := range m {
+		if f(k, v) {
+			return true
+		}
+	}
+	return false
 }
 

@@ -82,7 +82,7 @@ func TestEvery(t *testing.T) {
 			return false
 		})
 		t.Log(result)
-		if !result {
+		if result {
 			t.Fatal("fail")
 		}
 	})
@@ -385,3 +385,47 @@ func TestReduceRight(t *testing.T) {
 		}
 	})
 }
+
+
+func TestSome(t *testing.T) {
+	t.Run("array", func(t *testing.T) {
+		obj1 := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": false,
+		}
+		obj2 := map[string]interface{}{
+			"user":   "fred",
+			"age":    36,
+			"active": true,
+		}
+		arr := []map[string]interface{}{obj1, obj2}
+		result := Some(arr, func(index interface{}, item interface{}) bool {
+			obj := ToMap[string](item)
+			return !obj["active"].(bool)
+		})
+		t.Log(result)
+		if !result {
+			t.Fatal("fail")
+		}
+	})
+	t.Run("map", func(t *testing.T) {
+		obj := map[string]interface{}{
+			"user":   "barney",
+			"age":    30,
+			"active": false,
+		}
+		result := Some(obj, func(key interface{}, value interface{}) bool {
+			if key == "age" {
+				return value.(float64) == 30
+			}
+			return false
+		})
+		t.Log(result)
+		if !result {
+			t.Fatal("fail")
+		}
+	})
+}
+
+
