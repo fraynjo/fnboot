@@ -30,5 +30,5 @@ import (
 func main() {
 	lowerStr := string.ToLower("FNBOOT")
 	fmt.Println(lowerStr)
-} 
+}
 ```
